@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Notice Board</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #003366, #0099cc);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 20px 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .notice-board {
+      background: rgba(255, 255, 255, 0.15);
+      width: 80%;
+      max-width: 800px;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+
+    .notice {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: transform 0.2s ease;
+    }
+
+    .notice:hover {
+      transform: scale(1.02);
+    }
+
+    .notice h3 {
+      margin: 0;
+      color: #ffcc00;
+    }
+
+    .notice p {
+      margin: 5px 0 0;
+      color: #fff;
+    }
+
+    .add-notice {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      margin: 5px;
+      font-size: 1rem;
+    }
+
+    input, textarea {
+      width: 200px;
+    }
+
+    button {
+      background: #ffcc00;
+      color: #003366;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #ffd633;
+    }
+
+    .marquee {
+      width: 100%;
+      background: #ffcc00;
+      color: #003366;
+      font-weight: bold;
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      margin-top: auto;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollText 15s linear infinite;
+    }
+
+    @keyframes scrollText {
+      from { transform: translateX(0%); }
+      to { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+
+<body>
+  <header>📢Shri Chhatrapati Shivaji Maharaj College Of Engineering</header>
+
+  <div class="notice-board" id="noticeBoard">
+    <div class="notice">
+      <h3>Welcome Notice</h3>
+      <p>Welcome to the Digital Notice Board! Stay tuned for updates.</p>
+    </div>
+  </div>
+
+  <div class="add-notice">
+    <input type="text" id="titleInput" placeholder="Notice Title" />
+    <textarea id="msgInput" placeholder="Write your notice here..."></textarea><br>
+    <button onclick="addNotice()">Add Notice</button>
+  </div>
+
+  <div class="marquee">
+    <span id="scrollText">🎉 College Annual Function on 10th Oct | Admissions Open for 2025-2026 Batch | Check latest results on the website 🎓</span>
+  </div>
+
+  <script>
+    function addNotice() {
+      const title = document.getElementById('titleInput').value.trim();
+      const msg = document.getElementById('msgInput').value.trim();
+      const board = document.getElementById('noticeBoard');
+
+      if (title === '' || msg === '') {
+        alert('Please fill both fields!');
+        return;
+      }
+
+      const newNotice = document.createElement('div');
+      newNotice.classList.add('notice');
+
+      newNotice.innerHTML = `
+        <h3>${title}</h3>
+        <p>${msg}</p>
+      `;
+
+      board.prepend(newNotice); // Add to top
+      document.getElementById('titleInput').value = '';
+      document.getElementById('msgInput').value = '';
+    }
+
+    // Optional: auto-update marquee text from notices
+    setInterval(() => {
+      const notices = document.querySelectorAll('.notice h3');
+      const titles = Array.from(notices).map(n => n.textContent).join(' | ');
+      document.getElementById('scrollText').textContent = titles + ' | ';
+    }, 15000);
+  </script>
+</body>
+</html>

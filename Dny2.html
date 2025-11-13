@@ -1,0 +1,48 @@
+<<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR Art Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- A-Frame Library -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <!-- AR.js Library -->
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.1/aframe/build/aframe-ar.min.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+
+      <!-- AR Marker: Use Hiro marker -->
+      <a-marker preset="hiro">
+
+        <!-- Mona Lisa Painting -->
+        <a-image 
+          src="assets/mona_lisa.jpg" 
+          position="-1 0 0" 
+          scale="1 1 0.1"
+          sound="on: click; src: #mona-audio">
+        </a-image>
+
+        <!-- Starry Night Painting -->
+        <a-image 
+          src="assets/starry_night.jpg" 
+          position="1 0 0" 
+          scale="1 1 0.1"
+          sound="on: click; src: #starry-audio">
+        </a-image>
+
+      </a-marker>
+
+      <!-- AR Camera -->
+      <a-entity camera></a-entity>
+
+      <!-- Audio Assets -->
+      <a-assets>
+        <audio id="mona-audio" src="assets/audio/mona_lisa.mp3"></audio>
+        <audio id="starry-audio" src="assets/audio/starry_night.mp3"></audio>
+      </a-assets>
+
+    </a-scene>
+  </body>
+      
+</html>
